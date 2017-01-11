@@ -1,0 +1,36 @@
+{
+  "name": "MainWorkSpaceDemo",
+  "version": "1.0.0",
+  "summary": "A new container controller to slide",
+  "homepage": "github.com",
+  "license": {
+    "type": "MIT",
+    "file": "README.md"
+  },
+  "authors": {
+    "heroims": "heroims@163.com"
+  },
+  "source": {
+    "git": "",
+    "tag": "1.0.0"
+  },
+  "platforms": {
+    "ios": "5.0"
+  },
+  "source_files": "ZYQRouter/*.{h,m}",
+  "requires_arc": true,
+  "subspecs": [
+    {
+      "name": "BaseTool",
+      "source_files": "ZYQRouter/*.{h,m}"
+    },
+    {
+      "name": "Module1",
+      "source_files": "Module1/Module1Lib/*.{h,m}"
+    },
+    {
+      "name": "Module2",
+      "source_files": "Module2/Module2Lib/*.{h,m}"
+    }
+  ]
+}

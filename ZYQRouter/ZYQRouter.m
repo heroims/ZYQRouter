@@ -261,7 +261,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         va_end(argsList);
     }
 
-    return [self performTarget:targetName action:actionName shouldCacheTaget:NO objectsArr:[NSArray arrayWithObjects:objectsArr, nil]];
+    return [self performTarget:targetName action:actionName shouldCacheTaget:NO objectsArr:[NSArray arrayWithArray:objectsArr]];
 }
 
 + (id)performTarget:(NSString*)targetName action:(NSString*)actionName shouldCacheTaget:(BOOL)shouldCacheTaget objects:(id)object1,...{
@@ -280,7 +280,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         va_end(argsList);
     }
     
-    return [self performTarget:targetName action:actionName shouldCacheTaget:shouldCacheTaget objectsArr:[NSArray arrayWithObjects:objectsArr, nil]];
+    return [self performTarget:targetName action:actionName shouldCacheTaget:shouldCacheTaget objectsArr:[NSArray arrayWithArray:objectsArr]];
 }
 
 + (id)performTarget:(NSString*)targetName action:(NSString*)actionName shouldCacheTaget:(BOOL)shouldCacheTaget objectsArr:(NSArray*)objectsArr{
@@ -482,11 +482,44 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
         SEL sel = NSSelectorFromString(selectorName);
         IMP imp = [inst methodForSelector:sel];
         ZYQ_objcMsgSend objcMsgSend = (void *)imp;
+        
+        NSMutableArray *objectsArr=[[NSMutableArray alloc] init];
+        
         va_list argsList;
         va_start(argsList, selectorName);
-        void *first = va_arg(argsList, void*);
-        void *result = objcMsgSend(inst, sel, first, argsList);
+        id arg;
+        while ((arg = va_arg(argsList, id)))
+        {
+            [objectsArr addObject:arg];
+        }
         va_end(argsList);
+
+        void *result = nil;
+        if (objectsArr.count<1) {
+            result = objcMsgSend(inst, sel);
+        }
+        else if (objectsArr.count<2) {
+            result = objcMsgSend(inst, sel ,objectsArr[0]);
+        }
+        else if (objectsArr.count<3) {
+            result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1]);
+        }
+        else if (objectsArr.count<4) {
+            result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2]);
+        }
+        else if (objectsArr.count<5) {
+            result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3]);
+        }
+        else if (objectsArr.count<6) {
+            result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4]);
+        }
+        else if (objectsArr.count<7) {
+            result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4] ,objectsArr[5]);
+        }
+        else if (objectsArr.count<8) {
+            result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4] ,objectsArr[5] ,objectsArr[6]);
+        }
+
         return result;
     } @catch (NSException *exception) {
         return nil;

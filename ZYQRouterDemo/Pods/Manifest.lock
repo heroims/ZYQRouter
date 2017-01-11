@@ -1,0 +1,20 @@
+PODS:
+  - MainWorkSpaceDemo/BaseTool (1.0.0)
+  - MainWorkSpaceDemo/Module1 (1.0.0)
+  - MainWorkSpaceDemo/Module2 (1.0.0)
+
+DEPENDENCIES:
+  - MainWorkSpaceDemo/BaseTool (from `../MainWorkSpaceDemo.podspec`)
+  - MainWorkSpaceDemo/Module1 (from `../MainWorkSpaceDemo.podspec`)
+  - MainWorkSpaceDemo/Module2 (from `../MainWorkSpaceDemo.podspec`)
+
+EXTERNAL SOURCES:
+  MainWorkSpaceDemo:
+    :path: ../MainWorkSpaceDemo.podspec
+
+SPEC CHECKSUMS:
+  MainWorkSpaceDemo: 6d6c87dcb36514c0dab3c8244c0684b43ba8b21d
+
+PODFILE CHECKSUM: e3a01af25dc88c79f2d55e0a0209d68bc6ef82bd
+
+COCOAPODS: 1.1.1

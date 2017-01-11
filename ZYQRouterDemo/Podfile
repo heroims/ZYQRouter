@@ -1,0 +1,23 @@
+# Uncomment the next line to define a global platform for your project
+platform :ios, ‘7.0’
+
+target 'ZYQRouterDemo' do
+  # Uncomment the next line if you're using Swift or would like to use dynamic frameworks
+  # use_frameworks!
+
+  # Pods for ZYQRouterDemo
+  pod 'MainWorkSpaceDemo/BaseTool', :path => '../MainWorkSpaceDemo.podspec'
+  pod 'MainWorkSpaceDemo/Module1', :path => '../MainWorkSpaceDemo.podspec'
+  pod 'MainWorkSpaceDemo/Module2', :path => '../MainWorkSpaceDemo.podspec'
+
+  target 'ZYQRouterDemoTests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+  target 'ZYQRouterDemoUITests' do
+    inherit! :search_paths
+    # Pods for testing
+  end
+
+end

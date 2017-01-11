@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>SchemeUserState</key>
+	<dict>
+		<key>MainWorkSpaceDemo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ZYQRouterDemo.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ZYQRouterDemoTests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+		<key>Pods-ZYQRouterDemoUITests.xcscheme</key>
+		<dict>
+			<key>isShown</key>
+			<false/>
+		</dict>
+	</dict>
+	<key>SuppressBuildableAutocreation</key>
+	<dict>
+		<key>037C62D54FAF6A65AC67F69CF5F7197B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>3F67DC010547293947447C6BA00BAD7B</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>4475DADFC6FB3BDBDA39D9DC7EFF001A</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>8BA8AB862C999D6A6B05A236629B6CDA</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+		<key>CC0B6D6D3E28F3F0FB614976CB3C53B4</key>
+		<dict>
+			<key>primary</key>
+			<true/>
+		</dict>
+	</dict>
+</dict>
+</plist>
