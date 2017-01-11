@@ -1,9 +1,9 @@
 //
 //  ZYQRouter.h
-//  xgoods
+//  ZYQRouter
 //
-//  Created by admin on 2016/11/25.
-//  Copyright © 2016年 Look. All rights reserved.
+//  Created by Zhao Yiqi on 2016/11/25.
+//  Copyright © 2016年 Zhao Yiqi. All rights reserved.
 //
 
 #import <Foundation/Foundation.h>

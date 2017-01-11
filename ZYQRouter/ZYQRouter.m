@@ -1,9 +1,9 @@
 //
 //  ZYQRouter.m
-//  xgoods
+//  ZYQRouter
 //
-//  Created by admin on 2016/11/25.
-//  Copyright © 2016年 Look. All rights reserved.
+//  Created by Zhao Yiqi on 2016/11/25.
+//  Copyright © 2016年 Zhao Yiqi. All rights reserved.
 //
 
 #import "ZYQRouter.h"
@@ -70,8 +70,10 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 
 + (void)openURL:(NSString *)URL withUserInfo:(NSDictionary *)userInfo completion:(void (^)(id result))completion
 {
-    NSString *redirectURL=[[[self sharedIsntance] getRedirectURLPattern:URL] componentsSeparatedByString:@"?"][0];
+    NSArray *tmpUrlArr=[[[self sharedIsntance] getRedirectURLPattern:URL] componentsSeparatedByString:@"?"];
+    NSString *redirectURL=tmpUrlArr.count>0?tmpUrlArr[0]:URL;
     URL = redirectURL?redirectURL:URL;
+    URL = [NSString stringWithFormat:@"%@?%@",URL,tmpUrlArr.count>1?tmpUrlArr[1]:@""];
     URL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *parameters = [[self sharedIsntance] extractParametersFromURL:URL];
     
