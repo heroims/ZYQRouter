@@ -201,9 +201,9 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
 
 /**
  不定参静态方法调用 （最多支持7个，原因不定参方法传给不定参方法实在没啥好办法。。。。暂时如此）
- id result=(__bridge_transfer id)invokeSelectorObjects(@"Class", @"actionWithObj1:obj2:obj3",obj1,obj2,obj3,nil);
+ id result=(__bridge id)invokeSelectorObjects(@"Class", @"actionWithObj1:obj2:obj3",obj1,obj2,obj3,nil);
  
- c类型转换配合__bridge_transfer __bridge_retained
+ c类型转换配合__bridge_transfer __bridge
  利用IMP返回值只是指针，不支持C基本类型
  
  @param className 类名

@@ -31,6 +31,7 @@
 
 -(void)btnClick{
     NSLog(@"点击了");
+    
     [ZYQRouter openURL:@"module1://view?log=我是主程序"];
 }
 

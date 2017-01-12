@@ -10,15 +10,25 @@
 #import "ZYQRouter.h"
 @interface ModuleLib2ViewController ()
 
+@property(nonatomic,strong)UIViewController *myVC;
+
 @end
 
 @implementation ModuleLib2ViewController
+
+-(void)dealloc{
+    NSLog(@"delloc ModuleLib2ViewController!!!");
+}
 
 +(ModuleLib2ViewController*)pushController:(UIViewController*)parentVC log:(NSString*)log{
     NSLog(@"%@",log);
     ModuleLib2ViewController *vc=[[ModuleLib2ViewController alloc] init];
     [parentVC.navigationController pushViewController:vc animated:YES];
     return vc;
+}
+
++(NSString*)printClass:(UIViewController*)vc log:(NSString*)log{
+    return [NSString stringWithFormat:@"传来的对象Class:%@  \nlog:%@",[vc class],log];
 }
 
 - (void)viewDidLoad {
@@ -38,9 +48,14 @@
 
 -(void)btnClick{
     NSLog(@"点击了");
-    UIViewController *vc=[ZYQRouter performTarget:@"ModuleLib1ViewController" action:@"pushController:log:" objects:self,@"我是Module2",nil];
-    vc.title=@"form Module2";
-}
+    [ZYQRouter openURL:@"module1://view?log=我是Module2" completion:^(id result) {
+        [(UIViewController*)result setTitle:@"form Module2"];
+    }];
+/*  静态方法对象持久处理处理不好会提前释放如下面代码 
+    self.myVC=[ZYQRouter performTarget:@"ModuleLib1ViewController" action:@"pushController:log:" objects:self,@"我是Module2",nil];
+    self.myVC.title=@"form Module2";
+*/
+ }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];

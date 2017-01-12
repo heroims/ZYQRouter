@@ -10,11 +10,12 @@
 #import "ZYQRouter.h"
 @interface ModuleLib1ViewController ()
 
-@property(nonatomic,strong)UIViewController *myVC;
-
 @end
 
 @implementation ModuleLib1ViewController
+-(void)dealloc{
+    NSLog(@"delloc ModuleLib1ViewController!!!");
+}
 
 +(void)load{
     [ZYQRouter registerURLPattern:@"module1://view" toObjectHandler:^id(NSDictionary *routerParameters) {
@@ -47,8 +48,8 @@
 -(void)btnClick{
     NSLog(@"点击了");
    
-    self.myVC= (__bridge_transfer id)invokeSelectorObjects(@"ModuleLib2ViewController", @"pushController:log:",self,@"我是Module1",nil);
-    self.myVC.title=@"from Module1";
+    UIViewController *myVC= (__bridge id)invokeSelectorObjects(@"ModuleLib2ViewController", @"pushController:log:",self,@"我是Module1",nil);
+    myVC.title=@"from Module1";
     
 }
 
