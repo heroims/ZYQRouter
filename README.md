@@ -1,5 +1,6 @@
 # ZYQRouter
-## 组件化路由
+## 组件化路由  
+http://www.jianshu.com/p/e50478c51864
 ###页面路由 Page Router
 ```Objective-C
 /**
@@ -195,5 +196,3 @@ pod 'ZYQRouter',  '~> 1.0.0'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
-
-http://www.jianshu.com/p/e50478c51864
