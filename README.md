@@ -195,3 +195,5 @@ pod 'ZYQRouter',  '~> 1.0.0'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
+
+http://www.jianshu.com/p/e50478c51864
