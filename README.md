@@ -1,6 +1,6 @@
 # ZYQRouter
 ## 组件化路由
-###页面路由
+###页面路由 Page Router
 ```Objective-C
 /**
  重定向 URLPattern 到对应的 newURLPattern 
@@ -99,7 +99,7 @@
 + (NSString *)generateURLWithPattern:(NSString *)pattern parameters:(NSArray *)parameters;
 ```
 
-###方法路由
+###方法路由 Method Router
 ```Objective-C
 /**
  *
