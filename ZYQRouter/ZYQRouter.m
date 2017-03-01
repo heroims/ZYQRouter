@@ -84,7 +84,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     }];
     
     if (parameters) {
-        ZYQRouterHandler handler = parameters[@"block"];
+        ZYQRouterObjectHandler handler = parameters[@"block"];
         if (completion) {
             parameters[ZYQRouterParameterCompletion] = completion;
         }
@@ -93,7 +93,8 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         }
         if (handler) {
             [parameters removeObjectForKey:@"block"];
-            handler(parameters);
+            id result = handler(parameters);
+            completion(result);
         }
     }
 }
@@ -425,7 +426,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         [pathComponents addObject:pathSegments[0]];
         
         // 如果只有协议，那么放一个占位符
-        if ((pathSegments.count == 2 && ((NSString *)pathSegments[1]).length) || pathSegments.count < 2) {
+        if ((pathSegments.count >= 2 && ((NSString *)pathSegments[1]).length) || pathSegments.count < 2) {
             [pathComponents addObject:ZYQ_ROUTER_WILDCARD_CHARACTER];
         }
         
