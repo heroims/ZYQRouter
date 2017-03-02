@@ -24,6 +24,8 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 @property (nonatomic) NSMutableDictionary *routes;
 @property (nonatomic) NSMutableDictionary *redirectRoutes;
 
+@property (nonatomic,copy)id unFoundRoutesBlock;
+
 @property (nonatomic) NSMutableDictionary *targetsCache;
 @property (nonatomic) NSMutableDictionary *notFoundBlocks;
 
@@ -56,6 +58,19 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 + (void)deregisterURLPattern:(NSString *)URLPattern
 {
     [[self sharedIsntance] removeURLPattern:URLPattern];
+}
+
++ (void)registerUnFoundURLPatternToObjectHandler:(ZYQRouterObjectHandler)handler{
+    [[self sharedIsntance] setUnFoundRoutesBlock:handler];
+}
+
++ (void)registerUnFoundURLPatternToHandler:(ZYQRouterHandler)handler
+{
+    [[self sharedIsntance] setUnFoundRoutesBlock:handler];
+}
+
++ (void)deregisterUnFoundURLPatternToHandler{
+    [[self sharedIsntance] setUnFoundRoutesBlock:nil];
 }
 
 + (void)openURL:(NSString *)URL
@@ -388,7 +403,12 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     if (subRoutes[@"_"]) {
         parameters[@"block"] = [subRoutes[@"_"] copy];
     }
-    
+    else{
+        if (_unFoundRoutesBlock) {
+            parameters[@"block"] = [_unFoundRoutesBlock copy];
+        }
+    }
+
     return parameters;
 }
 

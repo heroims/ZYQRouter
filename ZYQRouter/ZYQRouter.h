@@ -70,6 +70,28 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
 + (void)deregisterURLPattern:(NSString *)URLPattern;
 
 /**
+ 注册未找到处理Url的处理
+ 
+ @param handle  该 block 会传一个字典，包含了注册的 URL 中对应的变量。
+ 假如注册的 URL 为 applink://beauty/:id 那么，就会传一个 @{@"id": 4} 这样的字典过来
+ */
++ (void)registerUnFoundURLPatternToObjectHandler:(ZYQRouterObjectHandler)handle;
+
+/**
+ 注册未找到处理Url的处理
+ 
+ @param handle  该 block 会传一个字典，包含了注册的 URL 中对应的变量。
+ 假如注册的 URL 为 applink://beauty/:id 那么，就会传一个 @{@"id": 4} 这样的字典过来
+ 自带的 key 为 @"url" 和 @"completion" (如果有的话)
+ */
++ (void)registerUnFoundURLPatternToHandler:(ZYQRouterHandler)handler;
+
+/**
+ 取消未找到处理Url的处理
+ */
++ (void)deregisterUnFoundURLPatternToHandler;
+
+/**
  *  打开此 URL
  *  会在已注册的 URL -> Handler 中寻找，如果找到，则执行 Handler
  *
