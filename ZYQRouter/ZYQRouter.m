@@ -23,8 +23,8 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
  */
 @property (nonatomic) NSMutableDictionary *routes;
 @property (nonatomic) NSMutableDictionary *redirectRoutes;
-
 @property (nonatomic,copy)id unFoundRoutesBlock;
+
 
 @property (nonatomic) NSMutableDictionary *targetsCache;
 @property (nonatomic) NSMutableDictionary *notFoundBlocks;
@@ -55,11 +55,6 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     [[self sharedIsntance] addURLPattern:URLPattern andHandler:handler];
 }
 
-+ (void)deregisterURLPattern:(NSString *)URLPattern
-{
-    [[self sharedIsntance] removeURLPattern:URLPattern];
-}
-
 + (void)registerUnFoundURLPatternToObjectHandler:(ZYQRouterObjectHandler)handler{
     [[self sharedIsntance] setUnFoundRoutesBlock:handler];
 }
@@ -71,6 +66,11 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 
 + (void)deregisterUnFoundURLPatternToHandler{
     [[self sharedIsntance] setUnFoundRoutesBlock:nil];
+}
+
++ (void)deregisterURLPattern:(NSString *)URLPattern
+{
+    [[self sharedIsntance] removeURLPattern:URLPattern];
 }
 
 + (void)openURL:(NSString *)URL
@@ -109,7 +109,9 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         if (handler) {
             [parameters removeObjectForKey:@"block"];
             id result = handler(parameters);
-            completion(result);
+            if (completion) {
+                completion(result);
+            }
         }
     }
 }
@@ -276,13 +278,13 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         }
         va_end(argsList);
     }
-
+    
     return [self performTarget:targetName action:actionName shouldCacheTaget:NO objectsArr:[NSArray arrayWithArray:objectsArr]];
 }
 
 + (id)performTarget:(NSString*)targetName action:(NSString*)actionName shouldCacheTaget:(BOOL)shouldCacheTaget objects:(id)object1,...{
     NSMutableArray *objectsArr=[[NSMutableArray alloc] init];
-
+    
     if (object1)
     {
         va_list argsList;
@@ -303,7 +305,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     id target=((ZYQRouter*)[self sharedIsntance]).targetsCache[targetName];
     if (target==nil) {
         Class targetClass=NSClassFromString(targetName);
-
+        
         target=[[targetClass alloc] init];
     }
     
@@ -358,7 +360,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     NSArray* pathComponents = [self pathComponentsFromURL:url];
     
     BOOL found = NO;
-
+    
     // borrowed from HHRouter(https://github.com/Huohua/HHRouter)
     for (NSString* pathComponent in pathComponents) {
         
@@ -408,7 +410,6 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
             parameters[@"block"] = [_unFoundRoutesBlock copy];
         }
     }
-
     return parameters;
 }
 
@@ -514,7 +515,7 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
             [objectsArr addObject:arg];
         }
         va_end(argsList);
-
+        
         void *result = nil;
         if (objectsArr.count<1) {
             result = objcMsgSend(inst, sel);
@@ -540,7 +541,7 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
         else if (objectsArr.count<8) {
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4] ,objectsArr[5] ,objectsArr[6]);
         }
-
+        
         return result;
     } @catch (NSException *exception) {
         return nil;
