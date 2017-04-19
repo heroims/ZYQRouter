@@ -23,7 +23,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
  */
 @property (nonatomic) NSMutableDictionary *routes;
 @property (nonatomic) NSMutableDictionary *redirectRoutes;
-@property (nonatomic,copy)id unFoundRoutesBlock;
+@property (nonatomic) NSDictionary *unFoundRoutesBlock;
 
 
 @property (nonatomic) NSMutableDictionary *targetsCache;
@@ -56,12 +56,12 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 }
 
 + (void)registerUnFoundURLPatternToObjectHandler:(ZYQRouterObjectHandler)handler{
-    [[self sharedIsntance] setUnFoundRoutesBlock:handler];
+    [[self sharedIsntance] setUnFoundRoutesBlock:@{@"block":[handler copy],@"type":@"ZYQRouterObjectHandler"}];
 }
 
 + (void)registerUnFoundURLPatternToHandler:(ZYQRouterHandler)handler
 {
-    [[self sharedIsntance] setUnFoundRoutesBlock:handler];
+    [[self sharedIsntance] setUnFoundRoutesBlock:@{@"block":[handler copy],@"type":@"ZYQRouterHandler"}];
 }
 
 + (void)deregisterUnFoundURLPatternToHandler{
@@ -99,18 +99,32 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     }];
     
     if (parameters) {
-        ZYQRouterObjectHandler handler = parameters[@"block"];
+        NSDictionary *handlerDic = parameters[@"block"];
+        
         if (completion) {
             parameters[ZYQRouterParameterCompletion] = completion;
         }
         if (userInfo) {
             parameters[ZYQRouterParameterUserInfo] = userInfo;
         }
-        if (handler) {
-            [parameters removeObjectForKey:@"block"];
-            id result = handler(parameters);
-            if (completion) {
-                completion(result);
+        
+        if (handlerDic) {
+            if ([handlerDic[@"type"] isEqualToString:@"ZYQRouterHandler"]) {
+                ZYQRouterHandler handler=handlerDic[@"block"];
+                [parameters removeObjectForKey:@"block"];
+                if (handler) {
+                    handler(parameters);
+                }
+            }
+            if ([handlerDic[@"type"] isEqualToString:@"ZYQRouterObjectHandler"]) {
+                ZYQRouterObjectHandler handler=handlerDic[@"block"];
+                if (handler) {
+                    [parameters removeObjectForKey:@"block"];
+                    id result = handler(parameters);
+                    if (completion) {
+                        completion(result);
+                    }
+                }
             }
         }
     }
@@ -155,14 +169,18 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     
     URL = [URL stringByAddingPercentEscapesUsingEncoding:NSUTF8StringEncoding];
     NSMutableDictionary *parameters = [router extractParametersFromURL:URL];
-    ZYQRouterObjectHandler handler = parameters[@"block"];
+    NSDictionary *handlerDic = parameters[@"block"];
     
-    if (handler) {
+    if (handlerDic) {
         if (userInfo) {
             parameters[ZYQRouterParameterUserInfo] = userInfo;
         }
-        [parameters removeObjectForKey:@"block"];
-        return handler(parameters);
+        if ([handlerDic[@"type"] isEqualToString:@"ZYQRouterObjectHandler"]) {
+            ZYQRouterObjectHandler handler=handlerDic[@"block"];
+            [parameters removeObjectForKey:@"block"];
+            return handler(parameters);
+            
+        }
     }
     return nil;
 }
@@ -207,7 +225,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 {
     NSMutableDictionary *subRoutes = [self addURLPattern:URLPattern];
     if (handler && subRoutes) {
-        subRoutes[@"_"] = [handler copy];
+        subRoutes[@"_"] = @{@"block":[handler copy],@"type":@"ZYQRouterHandler"};
     }
 }
 
@@ -215,7 +233,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 {
     NSMutableDictionary *subRoutes = [self addURLPattern:URLPattern];
     if (handler && subRoutes) {
-        subRoutes[@"_"] = [handler copy];
+        subRoutes[@"_"] = @{@"block":[handler copy],@"type":@"ZYQRouterObjectHandler"};
     }
 }
 
@@ -403,11 +421,11 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     }
     
     if (subRoutes[@"_"]) {
-        parameters[@"block"] = [subRoutes[@"_"] copy];
+        parameters[@"block"] = subRoutes[@"_"];
     }
     else{
         if (_unFoundRoutesBlock) {
-            parameters[@"block"] = [_unFoundRoutesBlock copy];
+            parameters[@"block"] = _unFoundRoutesBlock;
         }
     }
     return parameters;
