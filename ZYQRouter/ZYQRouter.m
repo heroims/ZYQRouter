@@ -520,8 +520,6 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
         Class inst=NSClassFromString(className);
         SEL sel = NSSelectorFromString(selectorName);
 
-        void *(*objcMsgSend)(id, SEL, ...) = (void *(*)(id, SEL, ...)) objc_msgSend;
-
         NSMutableArray *objectsArr=[[NSMutableArray alloc] init];
         
         va_list argsList;
@@ -535,27 +533,43 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
         
         void *result = nil;
         if (objectsArr.count<1) {
+            void *(*objcMsgSend)(id, SEL) = (void *(*)(id, SEL)) objc_msgSend;
+
             result = objcMsgSend(inst, sel);
         }
         else if (objectsArr.count<2) {
+            void *(*objcMsgSend)(id, SEL, id) = (void *(*)(id, SEL, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0]);
         }
         else if (objectsArr.count<3) {
+            void *(*objcMsgSend)(id, SEL, id, id) = (void *(*)(id, SEL, id, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1]);
         }
         else if (objectsArr.count<4) {
+            void *(*objcMsgSend)(id, SEL, id, id, id) = (void *(*)(id, SEL, id, id, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2]);
         }
         else if (objectsArr.count<5) {
+            void *(*objcMsgSend)(id, SEL, id, id, id, id) = (void *(*)(id, SEL, id, id, id, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3]);
         }
         else if (objectsArr.count<6) {
+            void *(*objcMsgSend)(id, SEL, id, id, id, id, id) = (void *(*)(id, SEL, id, id, id, id, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4]);
         }
         else if (objectsArr.count<7) {
+            void *(*objcMsgSend)(id, SEL, id, id, id, id, id, id) = (void *(*)(id, SEL, id, id, id, id, id, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4] ,objectsArr[5]);
         }
         else if (objectsArr.count<8) {
+            void *(*objcMsgSend)(id, SEL, id, id, id, id, id, id, id) = (void *(*)(id, SEL, id, id, id, id, id, id, id)) objc_msgSend;
+
             result = objcMsgSend(inst, sel ,objectsArr[0] ,objectsArr[1] ,objectsArr[2] ,objectsArr[3] ,objectsArr[4] ,objectsArr[5] ,objectsArr[6]);
         }
         
