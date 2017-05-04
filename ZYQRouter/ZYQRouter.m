@@ -9,6 +9,7 @@
 #import "ZYQRouter.h"
 
 #import <objc/runtime.h>
+#import <objc/message.h>
 
 static NSString * const ZYQ_ROUTER_WILDCARD_CHARACTER = @"~";
 
@@ -514,15 +515,13 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 }
 @end
 
-typedef void*(*ZYQ_objcMsgSend)(id, SEL, ...);
-
 void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
     @try {
         Class inst=NSClassFromString(className);
         SEL sel = NSSelectorFromString(selectorName);
-        IMP imp = [inst methodForSelector:sel];
-        ZYQ_objcMsgSend objcMsgSend = (void *)imp;
-        
+
+        void *(*objcMsgSend)(id, SEL, ...) = (void *(*)(id, SEL, ...)) objc_msgSend;
+
         NSMutableArray *objectsArr=[[NSMutableArray alloc] init];
         
         va_list argsList;
