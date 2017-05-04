@@ -191,8 +191,8 @@ $ pod setup
 Create Podfile:-
 ````
 $ edit Podfile
-platform :ios, '7.0'
-pod 'ZYQRouter',  '~> 1.0.0'
+platform :ios, '5.0'
+pod 'ZYQRouter',  '~> 1.2.0'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
