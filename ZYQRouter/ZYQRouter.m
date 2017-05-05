@@ -346,16 +346,13 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     }
     
     if ([target respondsToSelector:action]) {
-        return [target performSelector:action withObjectsArray:objectsArr];
+        return [target zyq_performSelector:action withObjectsArray:objectsArr];
     }
     else{
         SEL notFoundAction = NSSelectorFromString(@"notFound");
         
         if ([target respondsToSelector:notFoundAction]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-            return [target performSelector:notFoundAction];
-#pragma clang diagnostic pop
+            ZYQ_SuppressPerformSelectorLeakWarning(return [target performSelector:notFoundAction]);
         }
         else{
             if (notFoundBlock) {
@@ -515,7 +512,7 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
 }
 @end
 
-void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
+void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...){
     @try {
         Class inst=NSClassFromString(className);
         SEL sel = NSSelectorFromString(selectorName);
@@ -583,7 +580,7 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
 
 @implementation NSObject (ZYQRouter)
 
--(id)performSelector:(SEL)selector withObjects:(id)object1,... {
+-(id)zyq_performSelector:(SEL)selector withObjects:(id)object1,... {
     NSMutableArray *objectsArr=[[NSMutableArray alloc] init];
     
     if (object1)
@@ -599,10 +596,10 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...){
         va_end(argsList);
     }
     
-    return [self performSelector:selector withObjectsArray:[NSArray arrayWithArray:objectsArr]];
+    return [self zyq_performSelector:selector withObjectsArray:[NSArray arrayWithArray:objectsArr]];
 }
 
--(id)performSelector:(SEL)selector withObjectsArray:(NSArray *)objects {
+-(id)zyq_performSelector:(SEL)selector withObjectsArray:(NSArray *)objects {
     
     // 方法签名
     NSMethodSignature *signature = [[self class] instanceMethodSignatureForSelector:selector];

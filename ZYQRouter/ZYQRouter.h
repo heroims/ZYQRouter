@@ -17,6 +17,14 @@ typedef enum ZYQNotFoundHandlerError:NSInteger{
     ZYQNotFoundHandlerError_NotFoundAction
 }ZYQNotFoundHandlerError;
 
+#define ZYQ_SuppressPerformSelectorLeakWarning(Stuff) \
+do { \
+_Pragma("clang diagnostic push") \
+_Pragma("clang diagnostic ignored \"-Warc-performSelector-leaks\"") \
+Stuff; \
+_Pragma("clang diagnostic pop") \
+} while (0)
+
 /**
  *  routerParameters 里内置的几个参数会用到上面定义的 string
  */
@@ -232,7 +240,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  @param selectorName,... 方法名，不定参数
  @return 返回值
  */
-void * invokeSelectorObjects(NSString *className,NSString* selectorName,...);
+void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...);
 
 @interface NSObject (ZYQRouter)
 
@@ -244,7 +252,7 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...);
  @param object1,... 不定参数 不支持C基本类型
  @return 返回值
  */
--(id)performSelector:(SEL)selector withObjects:(id)object1,... ;
+-(id)zyq_performSelector:(SEL)selector withObjects:(id)object1,... ;
 
 
 /**
@@ -254,6 +262,6 @@ void * invokeSelectorObjects(NSString *className,NSString* selectorName,...);
  @param objects 参数数组 不支持C基本类型
  @return 返回值
  */
--(id)performSelector:(SEL)selector withObjectsArray:(NSArray *)objects ;
+-(id)zyq_performSelector:(SEL)selector withObjectsArray:(NSArray *)objects ;
 
 @end

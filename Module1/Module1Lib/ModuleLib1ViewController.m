@@ -48,7 +48,7 @@
 -(void)btnClick{
     NSLog(@"点击了");
    
-    UIViewController *myVC= (__bridge id)invokeSelectorObjects(@"ModuleLib2ViewController", @"pushController:log:",self,@"我是Module1",nil);
+    UIViewController *myVC= (__bridge id)zyq_invokeSelectorObjects(@"ModuleLib2ViewController", @"pushController:log:",self,@"我是Module1",nil);
     myVC.title=@"from Module1";
     
 }
