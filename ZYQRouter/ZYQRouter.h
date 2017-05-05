@@ -17,6 +17,10 @@ typedef enum ZYQNotFoundHandlerError:NSInteger{
     ZYQNotFoundHandlerError_NotFoundAction
 }ZYQNotFoundHandlerError;
 
+
+/**
+ 用于去除产生的performSelector警告
+ */
 #define ZYQ_SuppressPerformSelectorLeakWarning(Stuff) \
 do { \
 _Pragma("clang diagnostic push") \
@@ -246,7 +250,7 @@ void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...)
 
 /**
  不定参方法调用
- [self performSelector:@selector(actionWithObj1:obj2:obj3:) withObjects:obj1,obj2,obj3,nil]
+ [self zyq_performSelector:@selector(actionWithObj1:obj2:obj3:) withObjects:obj1,obj2,obj3,nil]
  
  @param selector 方法名
  @param object1,... 不定参数 不支持C基本类型
