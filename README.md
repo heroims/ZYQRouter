@@ -170,7 +170,7 @@ http://www.jianshu.com/p/e50478c51864
 
 /**
  不定参静态方法调用 （最多支持7个，原因不定参方法传给不定参方法实在没啥好办法。。。。暂时如此）
- id result=(__bridge id)invokeSelectorObjects(@"Class", @"actionWithObj1:obj2:obj3",obj1,obj2,obj3,nil);
+ id result=(__bridge id)zyq_invokeSelectorObjects(@"Class", @"actionWithObj1:obj2:obj3",obj1,obj2,obj3,nil);
  
  c类型转换配合__bridge_transfer __bridge
  利用IMP返回值只是指针，不支持C基本类型
@@ -179,7 +179,7 @@ http://www.jianshu.com/p/e50478c51864
  @param selectorName,... 方法名，不定参数
  @return 返回值
  */
-void * invokeSelectorObjects(NSString *className,NSString* selectorName,...);
+void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...);
 ```
 
 ## Installation
@@ -194,7 +194,7 @@ Create Podfile:-
 ````
 $ edit Podfile
 platform :ios, '5.0'
-pod 'ZYQRouter',  '~> 1.2.1'
+pod 'ZYQRouter',  '~> 1.2.2'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
