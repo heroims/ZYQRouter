@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UIKit/UIResponder.h>
 
 extern NSString *const ZYQRouterParameterURL;
 extern NSString *const ZYQRouterParameterCompletion;
@@ -267,5 +268,21 @@ void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...)
  @return 返回值
  */
 -(id)zyq_performSelector:(SEL)selector withObjectsArray:(NSArray *)objects ;
+
+@end
+
+
+@interface UIResponder (ZYQRouter)
+
+
+/**
+ 响应链传递路由
+ 
+ 用于解决多级嵌套UI对象的上级事件响应，省去delegate protocol逐级传递，跨级传递
+ 
+ @param eventName 事件名
+ @param userInfo 扩展信息
+ */
+-(void)zyq_routerEventWithName:(NSString *)eventName userInfo:(id)userInfo;
 
 @end

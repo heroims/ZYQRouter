@@ -638,3 +638,11 @@ void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...)
 }
 
 @end
+
+@implementation UIResponder (ZYQRouter)
+
+-(void)zyq_routerEventWithName:(NSString *)eventName userInfo:(id)userInfo{
+    [[self nextResponder] zyq_routerEventWithName:eventName userInfo:userInfo];
+}
+
+@end
