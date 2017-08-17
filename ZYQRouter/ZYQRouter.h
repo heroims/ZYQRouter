@@ -78,7 +78,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
 /**
  *  取消注册某个 URL Pattern
  *
- *  @param URLPattern
+ *  @param URLPattern 带上 scheme，如 applink://beauty/:id
  */
 + (void)deregisterURLPattern:(NSString *)URLPattern;
 
@@ -86,7 +86,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  注册未找到处理Url的处理
  
  @param handle  该 block 会传一个字典，包含了注册的 URL 中对应的变量。
- 假如注册的 URL 为 applink://beauty/:id 那么，就会传一个 @{@"id": 4} 这样的字典过来
+                假如注册的 URL 为 applink://beauty/:id 那么，就会传一个 @{@"id": 4} 这样的字典过来
  */
 + (void)registerUnFoundURLPatternToObjectHandler:(ZYQRouterObjectHandler)handle;
 
@@ -94,8 +94,8 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  注册未找到处理Url的处理
  
  @param handle  该 block 会传一个字典，包含了注册的 URL 中对应的变量。
- 假如注册的 URL 为 applink://beauty/:id 那么，就会传一个 @{@"id": 4} 这样的字典过来
- 自带的 key 为 @"url" 和 @"completion" (如果有的话)
+                假如注册的 URL 为 applink://beauty/:id 那么，就会传一个 @{@"id": 4} 这样的字典过来
+                自带的 key 为 @"url" 和 @"completion" (如果有的话)
  */
 + (void)registerUnFoundURLPatternToHandler:(ZYQRouterHandler)handler;
 
@@ -132,24 +132,24 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
 /**
  * 查找谁对某个 URL 感兴趣，如果有的话，返回一个 object
  *
- *  @param URL
+ *  @param URL 访问地址
  */
 + (id)objectForURL:(NSString *)URL;
 
 /**
  * 查找谁对某个 URL 感兴趣，如果有的话，返回一个 object
  *
- *  @param URL
- *  @param userInfo
+ *  @param URL 访问地址
+ *  @param userInfo 扩展信息
  */
 + (id)objectForURL:(NSString *)URL withUserInfo:(NSDictionary *)userInfo;
 
 /**
  *  是否可以打开URL
  *
- *  @param URL
+ *  @param URL 访问地址
  *
- *  @return
+ *  @return 是否可用
  */
 + (BOOL)canOpenURL:(NSString *)URL;
 
@@ -163,7 +163,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  *  @param pattern    url pattern 比如 @"beauty/:id"
  *  @param parameters 一个数组，数量要跟 pattern 里的变量一致
  *
- *  @return
+ *  @return 拼接的URL
  */
 + (NSString *)generateURLWithPattern:(NSString *)pattern parameters:(NSArray *)parameters;
 
@@ -177,7 +177,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  *
  *  @param targetName    执行方法的类
  *  @param actionName    方法名
- *  @param object1,... 不定参数 不支持C基本类型
+ *  @param object1 ,... 不定参数 不支持C基本类型
  *
  *  @return 方法回参
  */
@@ -192,7 +192,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  *  @param targetName    执行方法的类
  *  @param actionName    方法名
  *  @param shouldCacheTaget   设置target缓存
- *  @param object1,... 不定参数 不支持C基本类型
+ *  @param object1 ,... 不定参数 不支持C基本类型
  *
  *  @return 方法回参
  */
@@ -242,7 +242,7 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
  利用IMP返回值只是指针，不支持C基本类型
  
  @param className 类名
- @param selectorName,... 方法名，不定参数
+ @param selectorName ,... 方法名，不定参数
  @return 返回值
  */
 void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...);
@@ -254,9 +254,10 @@ void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...)
  [self zyq_performSelector:@selector(actionWithObj1:obj2:obj3:) withObjects:obj1,obj2,obj3,nil]
  
  @param selector 方法名
- @param object1,... 不定参数 不支持C基本类型
+ @param object1 ,... 不定参数 不支持C基本类型
  @return 返回值
  */
+
 -(id)zyq_performSelector:(SEL)selector withObjects:(id)object1,... ;
 
 
