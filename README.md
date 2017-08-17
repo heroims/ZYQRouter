@@ -182,7 +182,7 @@ http://www.jianshu.com/p/e50478c51864
 void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...);
 ```
 
-### 事件链路由 ResponderRouter
+### 事件链路由 Responder Router
 ``` Objective-C
 /**
  响应链传递路由
