@@ -182,6 +182,21 @@ http://www.jianshu.com/p/e50478c51864
 void * zyq_invokeSelectorObjects(NSString *className,NSString* selectorName,...);
 ```
 
+### 事件链路由 ResponderRouter
+``` Objective-C
+/**
+ 响应链传递路由
+ 
+ 用于解决多级嵌套UI对象的上级事件响应，省去delegate protocol逐级传递，跨级传递
+ 
+ @param eventName 事件名
+ @param userInfo 扩展信息
+ */
+-(void)zyq_routerEventWithName:(NSString *)eventName userInfo:(id)userInfo;
+
+```
+
+
 ## Installation
 
 ### via CocoaPods
@@ -194,7 +209,7 @@ Create Podfile:-
 ````
 $ edit Podfile
 platform :ios, '5.0'
-pod 'ZYQRouter',  '~> 1.2.2'
+pod 'ZYQRouter',  '~> 1.3.2'
 $ pod install
 ````
 Use the Xcode workspace instead of the project from now on.
