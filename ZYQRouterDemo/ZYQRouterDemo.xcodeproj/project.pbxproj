@@ -42,6 +42,7 @@
 		39F71A3E8AC0190125034BED /* Pods-ZYQRouterDemo.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYQRouterDemo.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZYQRouterDemo/Pods-ZYQRouterDemo.debug.xcconfig"; sourceTree = "<group>"; };
 		61DDF7CB9CD22C47FB64A243 /* Pods-ZYQRouterDemoTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYQRouterDemoTests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ZYQRouterDemoTests/Pods-ZYQRouterDemoTests.debug.xcconfig"; sourceTree = "<group>"; };
 		79F689CE4D2F3F7433B17453 /* Pods-ZYQRouterDemoUITests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ZYQRouterDemoUITests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ZYQRouterDemoUITests/Pods-ZYQRouterDemoUITests.release.xcconfig"; sourceTree = "<group>"; };
+		84B7EE0C1F456DB300D5C268 /* ZYQRouter.podspec */ = {isa = PBXFileReference; lastKnownFileType = text; name = ZYQRouter.podspec; path = ../../ZYQRouter.podspec; sourceTree = "<group>"; };
 		D8BCE4FA1E269EB400557557 /* ZYQRouterDemo.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ZYQRouterDemo.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		D8BCE4FE1E269EB400557557 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		D8BCE5001E269EB400557557 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -126,6 +127,7 @@
 		D8BCE4FC1E269EB400557557 /* ZYQRouterDemo */ = {
 			isa = PBXGroup;
 			children = (
+				84B7EE0C1F456DB300D5C268 /* ZYQRouter.podspec */,
 				D8BCE5001E269EB400557557 /* AppDelegate.h */,
 				D8BCE5011E269EB400557557 /* AppDelegate.m */,
 				D8BCE5031E269EB400557557 /* ViewController.h */,
