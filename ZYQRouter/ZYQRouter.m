@@ -282,6 +282,23 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
     [((ZYQRouter*)[self sharedIsntance]).targetsCache removeAllObjects];
 }
 
++ (id)getTargetsCacheWithTargetName:(NSString*)targetName{
+    return [((ZYQRouter*)[self sharedIsntance]).targetsCache objectForKey:targetName];
+}
+
++ (NSArray*)getTargetsCacheWithTargetNames:(NSArray*)targetNames{
+    NSMutableArray *targetsResult=[[NSMutableArray alloc] init];
+    for (NSString *targetName in targetNames) {
+        [targetsResult addObject:[((ZYQRouter*)[self sharedIsntance]).targetsCache objectForKey:targetName]];
+    }
+    return [NSArray arrayWithArray:targetsResult];
+}
+
++ (NSArray*)getAllTargetsCache{
+    return ((ZYQRouter*)[self sharedIsntance]).targetsCache.allValues;
+}
+
+
 + (id)performTarget:(NSString*)targetName action:(NSString*)actionName objects:(id)object1,...{
     NSMutableArray *objectsArr=[[NSMutableArray alloc] init];
     

@@ -231,6 +231,16 @@ typedef id (^ZYQNotFoundTargetActionHandler)(ZYQNotFoundHandlerError error,NSArr
 + (void)removeTargetsCacheWithTargetName:(NSString*)targetName;
 + (void)removeTargetsCacheWithTargetNames:(NSArray*)targetNames;
 + (void)removeAllTargetsCache;
+
+/**
+ *
+ *  获取Target缓存
+ *
+ */
++ (id)getTargetsCacheWithTargetName:(NSString*)targetName;
++ (NSArray*)getTargetsCacheWithTargetNames:(NSArray*)targetNames;
++ (NSArray*)getAllTargetsCache;
+
 @end
 
 /**
