@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
 s.name                  = 'ZYQRouter'
-s.version               = '1.3.3'
+s.version               = '1.3.4'
 s.summary               = 'A new method router and page router  '
 s.homepage              = 'https://github.com/heroims/ZYQRouter'
 s.license               = { :type => 'MIT', :file => 'README.md' }
