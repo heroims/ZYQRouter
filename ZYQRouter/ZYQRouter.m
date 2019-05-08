@@ -416,6 +416,11 @@ NSString *const ZYQRouterParameterUserInfo = @"ZYQRouterParameterUserInfo";
         }
         // 如果没有找到该 pathComponent 对应的 handler，则以上一层的 handler 作为 fallback
         if (!found && !subRoutes[@"_"]) {
+            if (_unFoundRoutesBlock) {
+                parameters[@"block"] = _unFoundRoutesBlock;
+                return parameters;
+            }
+
             return nil;
         }
     }
